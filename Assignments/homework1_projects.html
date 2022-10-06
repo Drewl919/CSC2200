@@ -1,0 +1,63 @@
+<!--
+Author: Andrew Musielak
+Course: CSC2200 Fall
+-->
+<!DOCTYPE html>
+<html lang="en" style="background-color: #F9C47B">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <link href="/css/homework1.css" rel="stylesheet">
+    <style>
+        table {
+            border: deeppink 2px solid;
+            width: 800px;
+        }
+        td {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #back {
+            display: block;
+            font-weight: bold;
+            color: blue;
+            background-color: inherit;
+        }
+        @media screen and (max-width:799px) {
+            table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1> EMF by <span class="name">Andrew Musielak</span> </h1>
+    <nav>
+        <navli> <a href="homework1_home.html"> Home </a> </navli>
+        <navli> <a href="homework1_projects.html"> Projects </a> </navli>
+    </nav>
+    <ol type="1">
+        <li><b>Home Town:</b> North Aurora, IL</li>
+        <li><b>High School:</b> Downers Grove South High School</li>
+    </ol>
+    <table>
+        <tr>
+            <td>
+                <div class="column1">
+                    This is a project where I am making a EMF detector from the game Phasmophobia.
+                    The EMF detector will be able to detect real electrical disturbances while also
+                    be able to simulate disturbances. In the photo to the right, you can see the shell
+                    of the detector starting to be printed out on my 3D printer.
+                </div>
+                <div>
+                    <img src='/imgs/3dprint.jpg' height="310" width="165" class="column2" style="padding: 4px">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <a href="homework1_home.html" id="back">Back to Main</a>
+
+</body>
+</html>

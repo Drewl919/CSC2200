@@ -1,0 +1,61 @@
+/*Author: Andrew Musielak*/
+/*Course: CSC2200 Fall*/
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li {
+    font-size: 18px;
+}
+h1 {
+    background-color: #898F9C;
+}
+.name {
+    color: #42009e;
+    text-decoration: underline;
+}
+navli {
+    float: left;
+}
+a:link, a:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #006b10;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+}
+a:hover, a:active {
+    background-color: #7A991A;
+}
+.maintainable {
+    border: 1px solid black;
+    width: 100%;
+    text-align: center;
+    border-spacing: 0px;
+}
+.column1, .column2, .column3 {
+    float: left;
+    width: auto;
+    margin: 2px 10px 3px 10px;
+    padding: 5px;
+    text-align: left;
+}
+.completed, .inprogress, .required {
+    text-align: center;
+    padding: 5px;
+}
+.completed {
+    background-color: mediumseagreen;
+}
+.inprogress {
+    background-color: yellow;
+}
+.required {
+    background-color: indianred;
+}

@@ -1,0 +1,119 @@
+<!--Name: Andrew Musielak-->
+<!--Class: CSC2200-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Car Dealer</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            #header {
+                padding: 10px;
+                font-size: 30px;
+                text-align: left;
+                background: #c8b7a6;
+                color: #35748E;
+            }
+            #contactbox {
+                margin: auto;
+                text-align: left;
+                width: 175px;
+                border: #35748E dashed 2px;
+            }
+            #row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            #leftcoulumn {
+                margin-top: 10px;
+                float: left;
+                width: 15%;
+                padding-right: 10px;
+                color: #35748E;
+            }
+            #rightcoulumn {
+                margin-top: 10px;
+                float: left;
+                width: 85%;
+                height: 720px;
+                padding: 5px;
+                background-color: #703f37;
+                color: #35748E;
+            }
+            .cars {
+                background-color: #35748E;
+                color: #B69840;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            #footer {
+                padding: 6px;
+                padding-left: 25px;
+                text-align: left;
+                background: #c8b7a6;
+                margin-top: 10px;
+            }
+            a:link {
+                color: #468a50;
+                text-decoration: underline;
+            }
+            a:visited {
+                color: #703f37;
+            }
+            a:hover, a:active {
+                background-color: #35748E;
+                color: #703f37;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <img src="imgs/car_logo.png" width="135" height="42.61" style="margin-top:15px; margin-left: 10px" alt="Drawing of a sport car going fast">
+            <span style="font-size: 30px; padding-left: 144px; margin-top: 16px; position: absolute;">Honest Jacks Autos</span>
+        </div>
+        <div id="row">
+            <div id="leftcoulumn">
+                <div style="padding: 2px; background-color: #703f37; height: 720px">
+                    <h2>September Sales!</h2>
+                    <ul>
+                        <li>Special financing</li>
+                        <li>Free floor mats</li>
+                        <li>Free oil changes for life!</li>
+                    </ul>
+                    <div id="contactbox">
+                        <span style="position: relative; top: 2px;left: 2px;">Contact Us!</span>
+                        <img src="imgs/contact.png" width="175px" height="75" style="position: relative" alt="People surrounded by different ways of contacting other">
+                    </div>
+                </div>
+            </div>
+            <div id="rightcoulumn">
+                <span style="font-size: 20px; float: top"><h2>Car Specials</h2></span>
+                <div style="color: #B69840">
+                    <div class="cars">
+                        <img src="imgs/fancyCar.png" width="175" height="75" alt="Fancy red car">
+                        <b>This amazing car has only 25,000 miles.</b>
+                    </div>
+                    <div class="cars">
+                        <img src="imgs/classCar2.png" width="175" height="75" alt="Classic red car">
+                        <b>A classic beauty. Slick, fast and in great shape.</b>
+                    </div>
+                    <div class="cars">
+                        <img src="imgs/convertCar.png" width="175" height="75" alt="Classic black convertable">
+                        <b>Only 50,000 miles on the cool convertable.</b>
+                    </div>
+                    <div class="cars">
+                        <img src="imgs/VW.png" width="175" height="75" alt="Red VW Beetle">
+                        <b>Everyone loves a VW beetle. It ain't fast but its small.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <h2>Using the <a href="https://hookagency.com/blog/website-color-schemes/" target="_blank">Muted Green - Color From Sherman Williams</a></h2>
+        </div>
+    </body>
+</html>
