@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .navbar-custom {
+        background-color: #98bf21;
+        height: 120px;
+      }
+      .nav-link {
+        color:blue !important
+      }
+    </style>
+    <script>
+      function getUInput() {
+        let uName = document.getElementById("uName").value;
+        let uPrice = document.getElementById("uPrice").value;
+        let uState = document.getElementById("uState").value;
+        alert( "uState:" + uState );
+        // Create an object literal called uVales
+        uVals = {
+          'uName' : uName,
+          'uPrice' : uPrice,
+          'uState' : uState
+        }
+        return uVals;
+      }
+
+      function calcCost(){
+        // let xVar; //todo variables w/o values are undefined
+        // if ( xVar == undefined ) {
+        //   alert("Nothing to see");
+        // } else {
+        //   alert("Something to see")
+        // }
+        //
+        // xVal = null;
+        // if ( xVar == null ) {
+        //   alert("Null is ok");
+        // } else {
+        //   alert("Something to see")
+        // }
+        //
+        // xVal = "Pizza" / 12;
+        // if ( isNaN(xVar) ) {
+        //   alert("No NaN for you" + xVar);
+        // } else {
+        //   alert("Something to see")
+        // }
+
+        // let keepGoing = true;
+        // let pi = 3.14;
+        // pi = 3;
+        // pi = "Pie";
+
+        // alert("Clicked!")
+
+        let uInput = getUInput();
+
+       let uPrice = parseInt(uInput.uPrice);
+        let tax = .07;
+        let totalCost = uPrice + (tax*uPrice);
+
+        let uResult = document.getElementById("uResults");
+        oStr = "<span style='color:red; background-color:yellow'>";
+        oStr += "Your total Cost is " + totalCost;
+        oStr += "Tax for the state:" + uInput.uState;
+        oStr += "</span>";
+        uResult.innerHTML = oStr;
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-custom navbar-light">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <h2> Sales Price Calculator </h2>
+      <form>
+        <div class="form-group">
+          <label for="uName">Name</label>
+          <input type="text" class="form-control" id="uName" aria-describedby="emailHelp" placeholder="Enter Name">
+          <small id="emailHelp" class="form-text text-muted">Ummmm your name..</small>
+        </div>
+        <div class="form-group">
+          <label for="uPrice">Price</label>
+          <input type="number" class="form-control" id="uPrice" placeholder="Price of item">
+        </div>
+        <div class="form-group">
+          <label for="uState">State</label>
+          <select name="state" id="uState" size="2">
+            <option value="IL"> Illinois </option>
+            <option value="IA"> Iowa </option>
+            <option value="IN"> Indiana </option>
+            <option value="WI"> Wisconsin </option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="calcCost();">Submit</button>
+      </form>
+      <div id="uResults"> Results are here </div>
+    </div>
+  </body>
+</html>
