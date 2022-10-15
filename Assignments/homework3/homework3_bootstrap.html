@@ -1,0 +1,229 @@
+<!--Andrew Musielak-->
+<!--CSC2200 Fall-->
+
+<!doctype html>
+<html lang="en" class="h-100" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.104.2">
+  <title>Andrew Musielak</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer-navbar/">
+  <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="css/homework3.css" rel="stylesheet">
+
+  <style>
+    .img{
+      grid-area: 1 / 1 / 1 / span 2;
+    }
+    .csc{
+      grid-area: 2 / 1;
+    }
+    .cyb{
+      grid-area: 2 / 2;
+    }
+    .shared{
+      grid-area: 2 / 3;
+    }
+
+    a:hover{
+      color: #FFC30F !important;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+
+
+</head>
+<body class="d-flex flex-column h-100" style="background-color: #5FA8FF">
+
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md fixed-top" style="background-color: #95BCDC">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://andrewmusielak.com/">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://45.55.136.114/~amusielak01/hw1/homework1_home.html">1 HW</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://45.55.136.114/~amusielak01/hw2/cardealer.html">2 HW</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Begin page content -->
+  <main class="flex-shrink-0" style="margin-top: 20px">
+    <div class="jumbotron m-md-5">
+      <h1 class="display-4" style="text-decoration: underline;">Andrew Musielak's Main Site</h1>
+      <div class="grid-container">
+        <div class="grid-item img">
+          <img src="imgs/image_of_me.jpg" height="240" style="border: black 2px solid;">
+        </div>
+
+        <div class="column1 grid-item csc">
+          <h2 style="text-align: left">CSC Major Courses</h2>
+          <table class="maintainable">
+            <tr>
+              <th>Course</th>
+              <th>Course Type</th>
+              <th>Status</th>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-2200</td>
+              <td>Required</td>
+              <td>In Progress</td>
+            </tr>
+            <tr class="completed">
+              <td>CSC-3250</td>
+              <td>Required</td>
+              <td>Completed</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-3510</td>
+              <td>Required</td>
+              <td>Spring 2023</td>
+            </tr>
+            <tr class="required">
+              <td>CSC-3700</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+            <tr class="required">
+              <td>CSC-4450</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+            <tr class="required">
+              <td>CSC-4500</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+            <tr class="required">
+              <td>CSC-4990</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+          </table>
+        </div>
+        <div class="column2 grid-item cyb">
+          <h2 style="text-align: left">CYB Major Courses</h2>
+          <table class="maintainable">
+            <tr>
+              <th>Course</th>
+              <th>Course Type</th>
+              <th>Status</th>
+            </tr>
+            <tr class="completed">
+              <td>CYB-1100</td>
+              <td>Required</td>
+              <td>Completed</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-2450</td>
+              <td>Required</td>
+              <td>In Progress</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-3350</td>
+              <td>Required</td>
+              <td>Spring 2022</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-3400</td>
+              <td>Required</td>
+              <td>Spring 2023</td>
+            </tr>
+            <tr class="required">
+              <td>CSC-3600</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+            <tr class="required">
+              <td>CYB-4610</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+            <tr class="required">
+              <td>CYB-4620</td>
+              <td>Required</td>
+              <td>TBD</td>
+            </tr>
+          </table>
+        </div>
+        <div class="column3 grid-item shared">
+          <h2 style="text-align: left">Shared Major Courses</h2>
+          <table class="maintainable">
+            <tr>
+              <th>Course</th>
+              <th>Course Type</th>
+              <th>Status</th>
+            </tr>
+            <tr class="completed">
+              <td>CSC-1700</td>
+              <td>Required</td>
+              <td>Completed</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC2150</td>
+              <td>Required</td>
+              <td>In Progress</td>
+            </tr>
+            <tr class="inprogress">
+              <td>CSC-2300</td>
+              <td>Required</td>
+              <td>In Progress</td>
+            </tr>
+            <tr class="completed">
+              <td>MTH-3270</td>
+              <td>Required</td>
+              <td>Completed</td>
+            </tr>
+            <tr class="inprogress">
+              <td>MTH-2320</td>
+              <td>Required</td>
+              <td>Spring 2023</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer mt-auto py-3" style="background-color: #C7C7C7">
+    <div class="container">
+      <span class="text-muted">Copyright &copy; 2022 Andrew Musielak</span>
+    </div>
+  </footer>
+
+
+  <script src="/Assignments/homework3/js/boostrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

@@ -16,11 +16,18 @@
       }
     </style>
     <script>
+      function showClick() {
+        alert("It is clicked");
+      }
       function getUInput() {
         let uName = document.getElementById("uName").value;
         let uPrice = document.getElementById("uPrice").value;
         let uState = document.getElementById("uState").value;
-        alert( "uState:" + uState );
+        console.log("uState: "+uState);
+        // let aintThere = document.getElementById("Blah").value;
+        // console.log("------------")
+        // console.log(aintThere);
+        // alert( "uState:" + uState );
         // Create an object literal called uVales
         uVals = {
           'uName' : uName,
@@ -61,16 +68,39 @@
 
         let uInput = getUInput();
 
-       let uPrice = parseInt(uInput.uPrice);
-        let tax = .07;
-        let totalCost = uPrice + (tax*uPrice);
-
+        let totalCost = calcTotal(uInput);
+        // let uPrice = parseInt(uInput.uPrice);
+        // let tax = .07;
+        // let totalCost = uPrice + (tax*uPrice);
+        outputResults(uInput, totalCost);
+      }
+      function outputResults(uIn, totalCost) {
         let uResult = document.getElementById("uResults");
-        oStr = "<span style='color:red; background-color:yellow'>";
-        oStr += "Your total Cost is " + totalCost;
-        oStr += "Tax for the state:" + uInput.uState;
-        oStr += "</span>";
+        oStr = `<span style='color:black'>`;
+        oStr += `<ol>`
+        oStr += `<li>Your total Cost is `+totalCost+`</li>`;
+        oStr += `<li>Tax for the state:${uIn.uState}</li>`;
+        oStr += "</ol></span>";
         uResult.innerHTML = oStr;
+      }
+      function calcTotal(uIn){
+        let sTax = {
+          IL : .07,
+          IN : .05,
+          IA : .06,
+          WI : 0.065
+        };
+        let sCode = uIn.uState;
+        let tax = sTax[sCode];
+        // let uPrice = parseInt(uInput.uPrice);
+        // let tax = .07;
+        // let totalCost = uPrice + (tax*uPrice);
+        console.log(`Tax:${tax}  sCode:${sCode}`);
+
+        let uPrice = parseInt(uIn.uPrice);
+
+        let totalCost = uPrice + (tax*uPrice);
+        return totalCost;
       }
     </script>
   </head>
@@ -95,7 +125,7 @@
     </nav>
 
     <div class="container mt-3">
-      <h2> Sales Price Calculator </h2>
+      <h2 onclick="showClick()"> Sales Price Calculator </h2>
       <form>
         <div class="form-group">
           <label for="uName">Name</label>
@@ -114,6 +144,12 @@
             <option value="IN"> Indiana </option>
             <option value="WI"> Wisconsin </option>
           </select>
+        </div>
+        <div class="form-group">
+          <label for="uRad">Delivery Options:</label>
+          Standard: <input type="radio" name="rad1" id="uRad" value="Standard" checked />
+          2-Day: <input type="radio" name="rad1" id="uRad" value="2Day"  />
+          1-Day: <input type="radio" name="rad1" id="uRad" value="1Day" />
         </div>
         <button type="button" class="btn btn-primary" onclick="calcCost();">Submit</button>
       </form>
