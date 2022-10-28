@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .navbar-custom {
+      background-color: #98bf21;
+      height: 120px;
+    }
+    .nav-link {
+      color:blue !important
+    }
+  </style>
+  <script>
+    let shipInfo = [
+      {'State' : 'Illinois', 'Code' : 'IL', 'Tax' : .07},
+      {'State' : 'Indiana', 'Code' : 'IN', 'Tax' : .05},
+      {'State' : 'Iowa', 'Code' : 'IW', 'Tax' : .06},
+      {'State' : 'Wisconsin', 'Code' : 'WI', 'Tax' : .065}
+    ]
+
+    function setOptions() {
+      alert("Clicked");
+      let uState = document.getElementById('uState');
+      for(let i=0; i<shipInfo.length; i++) {
+        // console.log(`State:${shipInfo[i].Code}`);
+        let opt = document.createElement('Option');
+        opt.value = shipInfo[i].Code;
+        opt.innerHTML = shipInfo[i].State;
+        uState.appendChild(opt);
+      }
+    }
+    // let shipInfo : {
+    //   sTax : {
+    //     IL : .07,
+    //     IN  : .05,
+    //     IO  : .06,
+    //     WI  : .065
+    //   },
+    //   ship : {
+    //     'Standard' : 1.00,
+    //     '1Day' : 3.00,
+    //     '2Day' : 2.00
+    //   },
+    // };
+    function setOptions() {
+      alert("Clicked");
+      let uState = document.getElementById('uState');
+      for(let i=0; i<shipInfo.length; i++) {
+        // console.log(`State:${shipInfo[i].Code}`);
+        let opt = document.createElement('Option');
+        opt.value = shipInfo[i].Code;
+        opt.innerHTML = shipInfo[i].State;
+        uState.appendChild(opt);
+      }
+    }
+
+    // function getUInput() {
+    //   let uName = document.getElementById("uName").value;
+    //   let uPrice = document.getElementById("uPrice").value;
+    //   let uState = document.getElementById("uState").value;
+    //   // let nfp = document.querySelector('nfp').checked;
+    //   let nfp = document.querySelector('input[name="nfp"]:checked');
+    //   let gotNFP = false;
+    //   if ( nfp != null){
+    //     gotNFP = true;
+    //   }
+    //
+    //   let rad1 = document.querySelector('input[name="rad1"]:checked').value;
+    //   // alert(`rad1:${rad1}`);
+    //   let uVals = {
+    //     'uName' : uName,
+    //     'uPrice' : uPrice,
+    //     'uState' : uState,
+    //     'rad1'   : rad1,
+    //     'gotNFP' : gotNFP
+    //   }
+    //   return uVals;
+    // }
+    //
+    // function calcCosts(){
+    //
+    //   let uInput = getUInput();
+    //
+    //   let totalCost = calcTotal( uInput );
+    //   // let uPrice = parseInt(uInput.uPrice);
+    //   // let tax = .07;
+    //   // let totalCost = uPrice + (tax*uPrice);
+    //   outputResults( uInput, totalCost );
+    //
+    //
+    // }
+    // function outputResults( uIn, totalCost ){
+    //   let uResults = document.getElementById("uResults");
+    //   let oStr = "<span style='color:black'>";
+    //   oStr += "<ol>";
+    //   let dollars = Intl.NumberFormat('en-US');
+    //
+    //   oStr += "<li>Your total Cost is $" + dollars.format(totalCost) + "</li>";
+    //   oStr += `<li> Tax for the state: ${uIn.uState} </li>`;
+    //   oStr += `<li> Shipping Method: ${uIn.rad1} </li>`;
+    //   oStr += `<li> NFP: ${uIn.gotNFP} </li>`;
+    //   oStr += "</ol> </span>";
+    //   uResults.innerHTML = oStr;
+    // }
+    // let shipInfo : {
+    //   sTax : {
+    //     IL : .07,
+    //     IN  : .05,
+    //     IO  : .06,
+    //     WI  : .065
+    //   },
+    //   ship : {
+    //     'Standard' : 1.00,
+    //     '1Day' : 3.00,
+    //     '2Day' : 2.00
+    //   },
+    // };
+    // let shipCalc = {
+    //   sCost: 0,
+    //   uPrice: 0,
+    //   uTax: 0,
+    //   totalCost: 0,
+    //   calcCosts: function(){
+    //     let tCost = uPrice + (utax*uPrice) + sCost;
+    //     return tCost;
+    //   }
+    // };
+    //
+    // function calcTotal( uIn ){
+    //   let sTax = {
+    //     IL : .07,
+    //     IN  : .05,
+    //     IO  : .06,
+    //     WI  : .065
+    //   };
+    //   let ship = {
+    //     'Standard' : 1.00,
+    //     '1Day' : 3.00,
+    //     '2Day' : 2.00
+    //   };
+    //   let sSel = uIn.rad1;
+    //
+    //   let sCost = 0;
+    //   if ( uIn.gotNFP == false ){
+    //     sCost = ship[sSel];
+    //   }
+    //   console.log( `sCost:${sCost}`);
+    //
+    //   let sCode = uIn.uState;
+    //   let tax = sTax[sCode];
+    //   // console.log( `tax:${tax} sCode:${sCode}`);
+    //   // let oTax = sTax.WI;
+    //   // //oTax = sTax['IN'];
+    //   //oTax = sTax.sC `tax:${oTax} IN`);
+    //  //  let uPrice = parseInt(uIn.uPrice);
+    //   let uPrice = parseFloat(uIn.uPrice);
+    //   //alert( uPrice );
+    //
+    //   let totalCost = uPrice + (tax*uPrice) + sCost;
+    //   return totalCost;
+    // }
+  </script>
+</head>
+<body onLoad="setOptions();">
+<nav class="navbar navbar-expand-sm navbar-custom navbar-light">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Active</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-3">
+  <h2 onClick="showClick();"> Sales Price Calculator </h2>
+  <form>
+    <div class="form-group">
+      <label for="uName">Email address</label>
+      <input type="text" class="form-control" id="uName" aria-describedby="emailHelp" placeholder="Enter Name">
+      <small id="emailHelp" class="form-text text-muted">Ummmm your name.</small>
+    </div>
+    <div class="form-group">
+      <label for="uPrice">Item Price</label>
+      <input type="text" class="form-control" id="uPrice" placeholder="Price of item">
+    </div>
+    <div class="form-group">
+      <label for="uState">State</label>
+      <select name="state" id="uState" size="2"/>
+
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="uRad">Delivery Options:</label>
+      Standard: <input type="radio" name="rad1" id="uRad" value="Standard"  />
+      2-Day: <input type="radio" name="rad1" id="uRad" value="2Day"  />
+      1-Day: <input type="radio" name="rad1" id="uRad" value="1Day" checked />
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" name='nfp' class="nfpCheck" id="nfp">
+      <label class="form-check-label"  for="nfp">Non For Profit</label>
+    </div>
+    <button type="button" class="btn btn-primary" onClick="calcCosts();">Submit</button>
+  </form>
+  <div id="uResults"> Results r here</div>
+</div>
+</body>
+</html>
