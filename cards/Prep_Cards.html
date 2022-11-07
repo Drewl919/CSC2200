@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .navbar-custom {
+      background-color: #98bf21;
+      height: 120px;
+    }
+    .nav-link {
+      color:blue !important
+    }
+  </style>
+  <script>
+    let cardGame = {
+      hand : [],
+      resetHand: function () {
+        this.hand = [];
+      },
+      got3OfKind : function() {
+        let handValues = [];//// [ 0, 0, 0, 0, 0];
+        for( let i=0; i<this.hand.length; i++) {
+          handValues[i] = 0;
+        }
+        for( let i=0; i<this.hand.length; i++) {
+          let v = this.hand[i].value;
+          handValues[v] += 1;
+          if(handValues[v] >= 3){
+            return true;
+          }
+        }
+        return false;
+        // console.log("----------HANDVALUES");
+        // console.log( handValues );
+      }
+    }
+    let deck = {
+       cards : [
+        {'img':'2C.png', 'value':2, suit:'clubs', 'dealt':false},
+        {'img':'2S.png', 'value':2, suit:'spades', 'dealt':false},
+        {'img':'2H.png', 'value':2, suit:'hearts', 'dealt':false},
+        {'img':'2D.png', 'value':2, suit:'diamonds', 'dealt':false},
+
+        {'img':'3C.png', 'value':3, suit:'clubs', 'dealt':false},
+        {'img':'3S.png', 'value':3, suit:'spades', 'dealt':false},
+        {'img':'3H.png', 'value':3, suit:'hearts', 'dealt':false},
+        {'img':'3D.png', 'value':3, suit:'diamonds', 'dealt':false},
+
+        {'img':'4C.png', 'value':4, suit:'clubs', 'dealt':false},
+        {'img':'4S.png', 'value':4, suit:'spades', 'dealt':false},
+        {'img':'4H.png', 'value':4, suit:'hearts', 'dealt':false},
+        {'img':'4D.png', 'value':4, suit:'diamonds', 'dealt':false}
+      ],
+      deltCt : 0,
+      getCard : function() {
+        let gotGoodCard = false;
+        while(!gotGoodCard) {
+          let rNum = Math.floor(Math.random() * deck.cards.length);
+          let card = deck.cards[rNum];
+          if(!card.dealt) {
+            card.dealt = true;
+            this.deltCt += 1;
+            return card;
+          } else if (this.deltCt == deck.cards.length) {
+            //ToDo: fix this later
+            console.log(`cards Dealt:${this.dealtCt}`);
+            alert("Out of cards ... Reshuffle....");
+            console.log("The HAND ----------");
+            console.log(cardGame.hand);
+            for(let i=0; i<deck.cards.length; i++) {
+              deck.cards[i].dealt = false;
+              this.deltCt = 0;
+            }
+          } else {
+            console.log("Got this card before");
+            console.log(card);
+          }
+        }
+      }
+    };
+    let ui = {
+      error : "",
+      goodBet : true,
+      bet : 0,
+      maxBet : 100,
+      betMsg : "",
+      getBet : function (betId, betDispId) {
+        this.bet = document.getElementById(betId).value;
+        if ( this.bet <= 0 || isNaN(this.bet/2) || this.bet == undefined || this.bet == null || this.bet > this.maxBet){
+          // alert(`No OK Bet:${this.bet}`);
+          //ToDo: privide more specific error message
+          this.error = `Illegal Bet:${this.bet}`;
+          this.goodBet = false;
+          this.betMsg = "<span style='color:red'>";
+          this.betMsg += `Illegal Bet:${this.bet}`;
+          this.betMsg += "</span>";
+        } else {
+          this.betMsg = "<span style='color:black'>";
+          this.betMsg += `Bet:${this.bet}`;
+          this.betMsg += "</span>";
+          this.goodBet = true;
+          this.error = "";
+        }
+        document.getElementById(betDispId).innerHTML = this.betMsg;
+        return this.goodBet;
+      },
+      showHand : function(id) {
+        let oArea = document.getElementById(id);
+        oArea .innerHTML = "";
+        let oStr = `<h2> Show ${cardGame.hand.length}</h2>`;
+        for(let i=0; i<cardGame.hand.length; i++) {
+          let c = cardGame.hand[i];
+          oStr += `<img src='imgs/${c.img}' alt='card' height='80px' width='60px'/>`
+        }
+        oArea.innerHTML = oStr;
+      },
+      showResults : function(id, msg) {
+        let oArea = document.getElementById(id);
+        oArea.innerHTML = msg;
+      }
+    };
+    function startGame() {
+      // 0. Get the bet from user (make sure ok)?
+      // 1. get a hand of cards
+      if(ui.getBet('uBet', 'uBetMsg')) {
+        cardGame.resetHand();
+        // alert("OK start the game");
+        cardGame.hand.push(deck.getCard());
+        cardGame.hand.push(deck.getCard());
+        cardGame.hand.push(deck.getCard());
+        cardGame.hand.push(deck.getCard());
+        cardGame.hand.push(deck.getCard());
+        ui.showHand("Cards");
+        if(cardGame.got3OfKind()) {
+          let msg = "You got 3 of a kind!";
+          ui.showResults('Results', msg);
+        } else {
+          let msg = "<span style='color:red'>You are a loser!</span>";
+          ui.showResults('Results', msg);
+        }
+        console.log(cardGame.hand);
+
+      } else {
+        alert("No game for you");
+      }
+    }
+  </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-custom navbar-light">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Active</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <div class=" col-sm-3" style="background-color:palegoldenrod; border:1px solid black;">
+    <h2> Place your bet! </h2>
+    Bet <input type="number" name="bet" id="uBet" min="0" max="100" />
+    <button type="button" class="btn btn-primary" onClick="startGame();"> Bet </button>
+    <span id="uBetMsg"> Bet Msg </span>
+  </div>
+  <div class=" col-sm-6" style="background-color:palegoldenrod; border:1px solid black;">
+    <span id="Cards"> Card Area</span>
+
+  </div>
+  <div class=" col-sm-3" style="background-color:palegoldenrod; border:1px solid black;">
+    <span id="Results"> Results Area</span>
+
+  </div>
+</div>
+</body>
+</html>

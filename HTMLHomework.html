@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script>
+    function clickedSelect() {
+      let select = document.getElementById('mySelect1');
+      let option = select.options[select.selectedIndex];
+      document.getElementById("selValue").innerHTML = "Option:" + option.value;
+      document.getElementById("seltext").innerHTML = "Text:" + option.text;
+
+    }
+  </script>
+</head>
+<body>
+  <b2 /> Favorite to win world series
+  <select id="mySelect1" onclick="clickedSelect()" >
+    <option value="1"> Astros </option>
+    <option value="2"> Phillies </option>
+  </select>
+  Bet
+  <input type="number" id="bet" min="1" max="100"/>
+  <br/><span id="selValue"></span>
+  <span id="seltext"></span>
+</body>
+</html>
