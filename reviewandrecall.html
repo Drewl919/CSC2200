@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+  let diceRoll = {
+    dice : [
+      {'img' : 'Die1.PNG', 'value' : 1},
+      {'img' : 'Die2.PNG', 'value' : 2},
+      {'img' : 'Die3.PNG', 'value' : 3},
+      {'img' : 'Die4.PNG', 'value' : 4},
+      {'img' : 'Die5.PNG', 'value' : 5},
+      {'img' : 'Die6.PNG', 'value' : 6},
+    ],
+    rollTotal : 0,
+    rollEm : function () {
+      this.rollTotal = 0;
+      let die1 = this.dice[Math.floor(Math.random() * diceRoll.dice.length)];
+      let die2 = this.dice[Math.floor(Math.random() * diceRoll.dice.length)];
+      this.rollTotal = parseInt(die1.value + die2.value);
+      let dice = [die1, die2]
+      return dice;
+    }
+  }
+</script>
+<body onload="diceRoll.rollEm();">
+</body>
+</html>

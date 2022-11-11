@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
   <title>Pappa Paulie's Pizza</title>
+  <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +13,8 @@
   <style>
     .navbar-custom {
       background-color: #98bf21;
-      height: 120px;
+      height: 40px;
+      overflow: hidden;
     }
     .nav-link {
       color:blue !important
@@ -25,22 +27,16 @@
       height: 50px;
       border-width: 1px 0;
     }
+    .prices {
+      width: 20%;
+      text-align: right;
+    }
     img {
       padding: 20px;
-    }
-    imgOverlay {
-      position: absolute;
-      margin-left: auto;
-      margin-right: auto;
-      left: 0;
-      right: 0;
       text-align: center;
-
     }
-    .center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+    .images {
+      position: absolute;
     }
   </style>
   <script>
@@ -48,14 +44,13 @@
       style: "currency",
       currency: "USD",
     });
-    let zip = false;
     let options = {
       'size':null,
       'onion':false,
       'sausage':false,
       'pepperoni':false,
       'extracheese':false,
-      'delivery':zip,
+      'zip':false,
     }
     let costs = {
       'size':0.00,
@@ -65,7 +60,8 @@
       'extracheese':0.00,
       'zipCodePrice':0.00,
       calcTotal : function () {
-        return dollarUS.format(this.size + this.onion + this.sausage + this.sausage + this.pepperoni + this.extracheese + this.zipCodePrice);
+        console.log(this.sausage)
+        return dollarUS.format(this.size + this.onion + this.sausage + this.pepperoni + this.extracheese + this.zipCodePrice);
       },
       calcSize : function (size) {
         for(let i=0; i<pizzaInfo.length; i++) {
@@ -112,22 +108,26 @@
     function setZipCodes(input) {
       console.log(input);
       if(input) {
-        zip = true;
+        options.zip = true;
         for (let i = 0; i < zipInfo.length; i++) {
           let opt = document.createElement('option');
           opt.value = zipInfo[i].Cost;
           opt.innerHTML = zipInfo[i].zip;
           uZip.appendChild(opt);
         }
+        document.getElementById("uZip").style.width = '65px';
       } else {
-        zip = false;
+        options.zip = false;
+        costs.zipCodePrice = 0;
+        updateCost();
         document.getElementById("uZip").innerHTML = '';
+        document.getElementById("uZip").style.width = '0';
       }
     }
     // Runs when updateCosts() runs, gets the inputs and save it to the object literals
     function getSelectedOptions() {
       costs.calcSize(document.getElementById("uSize").value);
-      if(zip) {
+      if(options.zip) {
         costs.zipCodePrice = parseFloat(document.getElementById("uZip").value);
       }
       let onions = document.getElementById("onionTopping");
@@ -137,67 +137,75 @@
       if ( onions.checked == true ) {
         costs.onion = toppingInfo.Onions.valueOf();
         options.onion = true;
+      } else {
+        costs.onion = 0;
+        options.onion = false;
       }
       if ( pepperoni.checked == true ) {
         costs.pepperoni = toppingInfo.Peperoni.valueOf();
         options.pepperoni = true;
+      } else {
+        costs.pepperoni = 0;
+        options.pepperoni = false;
       }
       if ( sausage.checked == true ) {
         costs.sausage = toppingInfo.Sausage.valueOf();
         options.sausage = true;
+      } else {
+        costs.sausage = 0;
+        options.sausage = false;
       }
       if ( cheese.checked == true ) {
         costs.extracheese = toppingInfo.ExtraCheese.valueOf();
         options.extracheese = true;
+      } else {
+        costs.extracheese = 0;
+        options.extracheese = false;
       }
-      // console.log(costs);
     }
     // Updates the cost at the bottom of the page
     function updateCost() {
       getSelectedOptions();
       let dollars = Intl.NumberFormat('en-US');
-      let oStr = "<table class='container mt-3'>";
-      oStr += "<tr><td>Pizza EX</td><td>"+dollarUS.format(costs.size)+"</td></tr>";
-      oStr += "<tr><td>Onions</td><td>"+dollarUS.format(costs.onion)+"</td></tr>";
-      oStr += "<tr><td>Pepperoni</td><td>"+dollarUS.format(costs.pepperoni)+"</td></tr>";
-      oStr += "<tr><td>Sausage</td><td>"+dollarUS.format(costs.sausage)+"</td></tr>";
-      oStr += "<tr><td>Extra Cheese EX</td><td>"+dollarUS.format(costs.extracheese)+"</td></tr>";
-      oStr += "<tr><td>Delivery</td><td>"+dollarUS.format(costs.zipCodePrice)+"</td></tr>";
-      oStr += `<tr><th>Total</th><th>${costs.calcTotal()}</th></tr></table>`;
+      let oStr = "<table class='container mt-3' style='table-layout:fixed; width: 100%' >";
+      oStr += "<tr><td>Pizza EX</td><td class='prices'>"+dollarUS.format(costs.size)+"</td></tr>";
+      oStr += "<tr><td>Onions</td><td class='prices'>"+dollarUS.format(costs.onion)+"</td></tr>";
+      oStr += "<tr><td>Pepperoni</td><td class='prices'>"+dollarUS.format(costs.pepperoni)+"</td></tr>";
+      oStr += "<tr><td>Sausage</td><td class='prices'>"+dollarUS.format(costs.sausage)+"</td></tr>";
+      oStr += "<tr><td>Extra Cheese EX</td><td class='prices'>"+dollarUS.format(costs.extracheese)+"</td></tr>";
+      oStr += "<tr><td>Delivery</td><td class='prices'>"+dollarUS.format(costs.zipCodePrice)+"</td></tr>";
+      oStr += `<tr><th>Total</th><th class='prices'>${costs.calcTotal()}</th></tr></table>`;
       document.getElementById("prices").innerHTML = oStr;
     }
     //Creates the pizza image
     function showPizza() {
-      if(options.size!=null) {
-        let image = document.getElementById("pizzaImg");
-        image.innerHTML = "";
-        let size = '0px';
+      if(options.size!=null && options.zip) {
+        document.getElementById("orderName").innerHTML = `<span style="font-size: 25px; padding: 15px; padding-bottom: 30px">Hello ${document.getElementById("uName").value}, here is your pizza:</span>`;
+        let size;
         if(options.size == 'EX') {
-          size = '500px';
+          size = '85%';
         } else if(options.size == 'LG') {
-          size = '450px';
+          size = '75%';
         } else if(options.size == 'MD') {
-          size = '400px';
+          size = '65%';
         } else if(options.size == 'SM') {
-          size = '350px';
+          size = '55%';
         }
-        let oImg = `<span style="font-size: 40px">Hello ${document.getElementById("uName").value}, here is your pizza:</span><br/><br/>`;
-        oImg += `<img src='imgs/pizza.png' class="center" width='${size}'>`;
+        document.getElementById("baseImage").innerHTML = `<img src='imgs/pizza.png' width='${size}'>`;
         if(options.onion){
-          oImg += `<img src='imgs/onions.png' class="center imgOverlay" width='${size}'>`;
+          document.getElementById("onions").innerHTML = `<img src='imgs/onions.png' width='${size}'>`;
         }
         if(options.pepperoni){
-          oImg += `<img src='imgs/pepperoni.png' class="center imgOverlay" width='${size}'>`;
+          document.getElementById("pepperoni").innerHTML = `<img src='imgs/pepperoni.png' width='${size}'>`;
         }
         if(options.sausage){
-          oImg += `<img src='imgs/sausage.png' class="center imgOverlay" width='${size}'>`;
+          document.getElementById("sausage").innerHTML = `<img src='imgs/sausage.png' width='${size}'>`;
         }
         if(options.extracheese){
-          oImg += `<img src='imgs/extracheese.png' class="center imgOverlay" width='${size}'>`;
+          document.getElementById("extracheese").innerHTML = `<img src='imgs/extracheese.png' width='${size}'>`;
         }
-        image.innerHTML = oImg;
       } else {
-        alert("No size selected")
+        alert("No size or delivery option selected")
       }
     }
   </script>
@@ -212,7 +220,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-itedm">
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
@@ -224,13 +232,15 @@
 </nav>
 
 <!--Creates the area for the image of the pizza to be displayed-->
-<div class="col-md-6 offset-md-3" data-ride="carousel" style="position: fixed; background-color: grey" onclick="window.location.reload()">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <span id="pizzaImg"> </span>
-    </div>
-  </div>
+<div class="col-sm-auto offset-md-4" style="position: fixed; background-color: grey" onclick="window.location.reload()">
+  <div id="orderName"></div>
+  <div id="baseImage" class="images" style="text-align: center; background-color: grey;"></div>
+  <div id="onions" class="images" style="text-align: center;"></div>
+  <div id="pepperoni" class="images" style="text-align: center;"></div>
+  <div id="sausage" class="images" style="text-align: center;"></div>
+  <div id="extracheese" class="images" style="text-align: center;"></div>
 </div>
+
 
 <div class="container mt-3">
   <h2 onClick="_______"> Pappa Paulie's Pizza </h2>
@@ -238,11 +248,11 @@
     <div class="form-group">
       <label for="uName">Name</label>
       <input type="text" class="form-control" id="uName" aria-describedby="name" placeholder="Enter Name">
-      <small id="emailHelp" class="form-text text-muted">Ummmm your name.</small>
+      <small id="emailHelp" class="form-text text-muted">Enter the name for the order.</small>
     </div>
     <div class="form-group">
       <label for="uSize">Pizza:</label>
-      <select name="size" id="uSize" size="3" onchange="updateCost()"/>
+      <select name="size" id="uSize" size="3" onchange="updateCost()" style="width: 100px;"/>
 
       </select>
     </div>
