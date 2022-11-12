@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pappa Paulie's Pizza</title>
+  <title>Papa Paulie's Pizza</title>
   <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,7 +50,7 @@
       'sausage':false,
       'pepperoni':false,
       'extracheese':false,
-      'zip':false,
+      'delOp':false,
     }
     let costs = {
       'size':0.00,
@@ -106,9 +106,8 @@
       }
     } // Sets and removes the zip codes according to what the user selects (delivery or pickup)
     function setZipCodes(input) {
-      console.log(input);
+      options.delOp = true;
       if(input) {
-        options.zip = true;
         for (let i = 0; i < zipInfo.length; i++) {
           let opt = document.createElement('option');
           opt.value = zipInfo[i].Cost;
@@ -117,7 +116,6 @@
         }
         document.getElementById("uZip").style.width = '65px';
       } else {
-        options.zip = false;
         costs.zipCodePrice = 0;
         updateCost();
         document.getElementById("uZip").innerHTML = '';
@@ -127,7 +125,7 @@
     // Runs when updateCosts() runs, gets the inputs and save it to the object literals
     function getSelectedOptions() {
       costs.calcSize(document.getElementById("uSize").value);
-      if(options.zip) {
+      if(options.delOp) {
         costs.zipCodePrice = parseFloat(document.getElementById("uZip").value);
       }
       let onions = document.getElementById("onionTopping");
@@ -179,7 +177,7 @@
     }
     //Creates the pizza image
     function showPizza() {
-      if(options.size!=null && options.zip) {
+      if(options.size !=null && options.delOp) {
         document.getElementById("orderName").innerHTML = `<span style="font-size: 25px; padding: 15px; padding-bottom: 30px">Hello ${document.getElementById("uName").value}, here is your pizza:</span>`;
         let size;
         if(options.size == 'EX') {
