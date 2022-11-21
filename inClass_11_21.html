@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All About JS</title>
+    <script>
+        class myMath {
+            constructor(x=1, y=2) {
+                this.x = x;
+                this.y = y;
+            }
+            subtract(x, y) {
+                return x-y;
+            }
+            add(x, y) {
+                return x+y;
+            }
+        }
+        var x = 0;
+        function myMethod() {
+            // 'use strict';
+            //let x = 0;
+            x = 0;
+
+            var name = 'Mike';
+            if (name == "Mike") {
+                // let x = 0;
+                // console.log(x);
+                x = x + 1;
+            }
+            // console.log(x);
+            myMethod2();
+            myMethod3();
+        }
+        function myMethod2() {
+            console.log(`x=${x}`);
+
+            let cities = ['Chicago', 'LA'];
+            let teams = ['Bears', 'Bulls', 'Cubs', 'Sox'];
+            let combo = ['All', ...cities,...teams];
+            console.log(combo)
+
+            for (let teams of combo) {
+                console.log(`teams:${teams}`);
+            }
+            // myMethod3();
+            myMethod4("Pete");
+            myMethod5();
+        }
+        function myMethod5() {
+            let color = ['red', 'blue', 'green', 'yellow'];
+            let other = ['Big', 'Little', 'Medium'];
+            let [first,, third] = color; // destructuring, this is red and green
+
+        }
+        function myMethod4(x=0, y=1) {
+            let m = new myMath(5, 5);
+            let metRes = m.add(5, 5);
+
+
+
+            return x+y;
+
+            let calc = {
+                add : function (x, y){
+                    return x+y;
+                },
+                subtract : function (x, y) {
+                    return x-y;
+                }
+            }
+            let res = calc.add(3, 4);
+            res = calc.subtract(5, 4);
+        }
+        function myMethod3() {
+            let footBall = {
+                'chicago' : 'bears',
+                'detroit' : 'lions'
+            }
+
+            console.log(footBall.eyes);
+            console.log(footBall);
+            let ch = footBall.chicago;
+            let ch2 = footBall['chicago'];
+            let city = 'chicago';
+            let ch3 = footBall[city];
+
+            // for(let k of footBall) {
+            //     console.log(`T:${footBall[k]}   City:${k}`);
+            // }
+
+            let courses = new Map();
+            courses.set('CSC1700', {title: "Intro to Programming", year: 'freshman'});
+            courses.set('CSC2660', {title: "OPP", year: 'sophmore'});
+            courses.set('CSC3660', {title: "Data Structures", year: 'junior'});
+
+            let info = courses.get('CSC1700');
+            console.log(`info: ${info}`);
+            console.log(`info: ${info.title}`);
+            console.log(`info: ${info.year}`);
+            for(let c of courses.keys()) {
+                console.log(`C:${c}   title:${courses.get(c).title}`);
+            }
+        }
+    </script>
+</head>
+<body onload="myMethod()">
+<h2>All about JS</h2>
+<div id="results">Results</div>
+
+</body>
+</html>
