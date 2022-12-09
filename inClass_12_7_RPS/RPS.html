@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock, Paper, Scissors</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel='stylesheet' href="rockStyles.css"/>
+    <script>
+        function startProgram() {
+            alert("Clicked")
+        }
+
+        let ui = {
+            DisplayImg: function (oPickObj, disId) {
+                let iStr = `<img src='img/${oPickObj.img}' width='100px' height='100px' >`;
+                alert(`iStr=${iStr}`);
+                $(`#${disId}`).html(`${iStr}`);
+                // document.getElementById('dispId').innerHTML = iStr;
+            },
+            setValueDisplay: function (val, disId) {
+                $(`#${disId}`).html(val);
+            }
+        }
+        let game = {
+            rules: [
+                {id: 0, 'item': 'rock', beats: 'scissors', 'img': 'rock.PNG'},
+                {id: 1, 'item': 'paper', beats: 'rock', 'img': 'paper.PNG'},
+                {id: 2, 'item': 'scissors', beats: 'paper', 'img': 'scissors.PNG'}
+            ],
+            getThisRuleRow: function (row) {
+                return rules.id[row];
+            },
+            getRandomInt: function (min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        }
+        $(document).ready(function () {
+            alert("Jquery is ready");
+            $("#mainButton").click(function () {
+                // alert("Something clicked")
+                let cPick = game.getRandomInt(0,2);
+                ui.DisplayImg(game.rules[cPick], "cPick");
+                let uPick = $('#sel1').find(":selected").val();
+                // alert( `uPick:${uPick}`)
+
+                ui.DisplayImg( game.rules[uPick], "uPick");
+            })
+        })
+    </script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="title">Rock Paper Scissors Game</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-center" style="background-color: #FFC30F">
+            <div class="pick_results" id="uPick">User Pick</div>
+        </div>
+        <div class="col-sm-6 text-center" style="background-color: #f4d8ae">
+            <div class="pick_results" id="cPick">Computer Pick</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 text-center" id="resArea" style="background-color: #FFC30F">
+            <p>Winner Loser results</p>
+        </div>
+        <div class="col-sm-4 text-center" style="background-color: #f4d8ae">
+            Bet: <input type="number" id='bet' min="1" max="10" value="0">
+            <button type="button" id='mainButton' class="btn btn-primary" onclick="startProgram()">
+                Click to start
+            </button>
+        </div>
+        <div class="col-sm-4 text-center" style="background-color: yellowgreen">
+            <div id="selDiv">
+                <select name="uPick" id="sel1" size="4">
+                    <option value="0" selected> Rock</option>
+                    <option value="1"> Paper</option>
+                    <option value="2"> Scissors</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" style="background-color:plum;">
+            <p class="text-center" id="winnings">
+                Wins: <span id="wins"> 0 </span>
+                Loss: <span id="loss"> 0 </span>
+                Draws: <span id="draws"> 0 </span>
+                Winnings: <span id="tWins"> 0 </span>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

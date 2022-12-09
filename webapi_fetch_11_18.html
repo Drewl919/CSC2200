@@ -33,8 +33,7 @@
                         oStr = "No data found for zip:" + z;
                     } else {
                         let pl = data.places[0];
-                        let apiKey = String(prompt("Please enter your key:"));
-                        let url2 = `https://api.openweathermap.org/data/2.5/weather?lat=${pl.latitude}&lon=${pl.longitude}&appid=${apiKey}&units=imperial`;
+                        let url2 = `https://api.openweathermap.org/data/2.5/weather?lat=${pl.latitude}&lon=${pl.longitude}&appid=b95687edcff04962f4397b994636eede&units=imperial`;
                         // console.log("----------------");
                         // alert(url2);
                         fetch(url2)

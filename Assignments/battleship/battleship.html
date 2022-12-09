@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Battle Ship</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script sri="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .square {
+            height: 40px;
+            width: 40px;
+            border: solid black;
+        }
+
+        h1 {
+            padding: 20px;
+            color: white;
+            background-color: black;
+        }
+    </style>
+    <script>
+        let game = {
+            maxTurns: 0,
+            shotCount: 0,
+            totalHit: 0,
+            totalMisses: 0,
+            sunkShips: 0,
+            shipsLeft: 5,
+            ship: {
+                icon: "<img src='battleship.png' height='50px'/>"
+            }, hit: {
+                icon: "<img src='hit.png' height='50px'/>"
+            }, miss: {
+                icon: "<img src='miss.png' height='50px'/>"
+            }, water: {
+                icon: "<img src='water.png' height='50px'/>"
+            },
+            myBoard:
+                [
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null],
+                ],
+            shipStats: {
+                car: {
+                    maxHits: 5,
+                    hits: 0,
+                    status: "Alive"
+                },
+                bat: {
+                    maxHits: 4,
+                    hits: 0,
+                    status: "Alive"
+                },
+                sub: {
+                    maxHits: 3,
+                    hits: 0,
+                    status: "Alive"
+                },
+                cru: {
+                    maxHits: 3,
+                    hits: 0,
+                    status: "Alive"
+                },
+                des: {
+                    maxHits: 5,
+                    hits: 0,
+                    status: "Alive"
+                }
+            }
+        }
+
+        function checkHit(r, c) {
+            let spot = game.myBoard[r][c];
+            game.shotCount = game.shotCount++;
+            if (spot == null) {
+                game.miss = game.miss++;
+            } else {
+                game.totalHit++;
+                if(spot=='car') {
+                    game.shipStats.car.hits++;
+                    document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
+                    document.getElementById(`${r}${c}`).setAttribute("alert('Already Hit!')");
+                }
+            }
+            warBoard();
+        }
+
+        function showBoard() {
+            let tRow = "";
+            for (let r = 0; r < game.myBoard.length; r++) {
+                tRow += `<tr id="R${r}">`;
+                for (let c = 0; c < game.myBoard.length; c++) {
+                    let sq = game.myBoard[r][c];
+                    if (sq == null) {
+                        tRow += `<td id="${r}${c}" class="square" onClick="checkHit(${r},${c})">${game.water.icon}</td>`;
+                    } else {
+                        alert("Board configuration error")
+                    }
+                }
+                tRow += `</tr>`;
+            }
+            document.getElementById("gameArea").innerHTML = tRow;
+        }
+
+        function checkNullPos(shipStPos, size, ship, pos) {
+            let place = true;
+            if (pos == "col") {
+                for (let i = 0; i < size; i++) {
+                    if ((game.myBoard[shipStPos[0]][shipStPos[1] + i]) != null) {
+                        place = false;
+                    }
+                }
+                if (place) {
+                    for (let i = 0; i < size; i++) {
+                        game.myBoard[shipStPos[0]][shipStPos[1] + i] = ship;
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                for (let i = 0; i < size; i++) {
+                    if ((game.myBoard[shipStPos[0] + i][shipStPos[1]]) != null) {
+                        place = false;
+                    }
+                }
+                if (place) {
+                    for (let i = 0; i < size; i++) {
+                        game.myBoard[shipStPos[0] + i][shipStPos[1]] = ship;
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        function assignShipPos() {
+            while (!checkNullPos([parseInt(Math.random() * 10), parseInt(Math.random() * 5)], 5, 'car', "col")) {
+            }
+            while (!checkNullPos([parseInt(Math.random() * 5), parseInt(Math.random() * 10)], 4, 'bat', "row")) {
+            }
+            while (!checkNullPos([parseInt(Math.random() * 10), parseInt(Math.random() * 7)], 3, 'sub', "col")) {
+            }
+            while (!checkNullPos([parseInt(Math.random() * 10), parseInt(Math.random() * 7)], 3, 'cru', "col")) {
+            }
+            while (!checkNullPos([parseInt(Math.random() * 5), parseInt(Math.random() * 10)], 5, 'des', "row")) {
+            }
+        }
+
+        function showBoats(t) {
+            if (t) {
+                for (let r = 0; r < game.myBoard.length; r++) {
+                    for (let c = 0; c < game.myBoard.length; c++) {
+                        if (game.myBoard[r][c] != null) {
+                            document.getElementById(`${r}${c}`).innerHTML = game.ship.icon;
+                        }
+                    }
+                }
+                document.getElementById("show").innerText = "Hide Boats"
+                document.getElementById("show").setAttribute('onclick', 'showBoats(false)');
+
+            } else {
+                for (let r = 0; r < game.myBoard.length; r++) {
+                    for (let c = 0; c < game.myBoard.length; c++) {
+                        if (game.myBoard[r][c] != null) {
+                            document.getElementById(`${r}${c}`).innerHTML = game.water.icon;
+                        }
+                    }
+                }
+                document.getElementById("show").innerText = "Show Boats"
+                document.getElementById("show").setAttribute('onclick', 'showBoats(true)');
+            }
+        }
+
+        function warBoard() {
+            let oStr = "";
+            oStr += "<button type='button' onclick='showBoats(true);' id='show' class='btn btn-dark' style='margin: 25px'>Show Boats</button>";
+            oStr += `Max Shots: ${game.maxTurns}`;
+            oStr += `<table class="table table-bordered">`;
+            oStr += `<tr><td>Shot Count</td><td id='shotCount' class="text-center">${game.shotCount}</td></tr>`;
+            oStr += `<tr><td>Total Hits</td><td id='totalHits' class="text-center">${game.totalHit}</td></tr>`;
+            oStr += `<tr><td>Total Misses</td><td id='totalMisses' class="text-center">${game.totalMisses}</td></tr>`;
+            oStr += `<tr><td>Sunk Ships</td><td id='sunkShips' class="text-center">${game.sunkShips}</td></tr>`;
+            oStr += `<tr><td>Ships Left</td><td id='shipsLeft' class="text-center">${game.shipsLeft}</td></tr>`;
+            oStr += "</table>";
+
+            oStr += "<div id='message' style='color: red; height: 25px; padding: 10px'></div>";
+            oStr += "<h2 style='padding: 0px'>Ship Status</h2><hr>";
+
+            oStr += `<table class="table" style="border: 0px solid cornflowerblue">`
+            oStr += `<tr><th>Ship</th><th>Max Hits</th><th>Hits</th><th>Status</th></tr>`
+            oStr += `<tr><td>Carrier</td><td>5</td><td id="carHits">${game.shipStats.car.hits}</td><td id="carStatus">${game.shipStats.car.status}</td>`;
+            oStr += `<tr><td>Battleship</td><td>4</td><td id="batHits">${game.shipStats.bat.hits}</td><td id="batStatus">${game.shipStats.bat.status}</td>`;
+            oStr += `<tr><td>Submarine</td><td>3</td><td id="subHits">${game.shipStats.sub.hits}</td><td id="subStatus">${game.shipStats.sub.status}</td>`;
+            oStr += `<tr><td>Cruiser</td><td>3</td><td id="cruHits">${game.shipStats.cru.hits}</td><td id="cruStatus">${game.shipStats.cru.status}</td>`;
+            oStr += `<tr><td>Destroyer</td><td>5</td><td id="desHits">${game.shipStats.des.hits}</td><td id="desStatus">${game.shipStats.des.status}</td>`;
+            oStr += "</table>";
+
+            document.getElementById("warBoard").innerHTML = oStr;
+        }
+
+        function setupGame() {
+            game.maxTurns = parseInt(document.getElementById("moves").value);
+            if (game.maxTurns < 1 || game.maxTurns > 100) {
+                document.getElementById("inputError").innerHTML = `${game.turns} is not within the range (1-100)`;
+            } else {
+                document.getElementById("title").innerHTML = `${document.getElementById("name").value}'s War Board`;
+                assignShipPos();
+                warBoard();
+            }
+        }
+    </script>
+</head>
+<body onload="showBoard()">
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="text-center">Battleship</h1>
+    </div>
+    <div class="row">
+        <div class=" col-sm-3" style="background-color:cornflowerblue; border:1px solid black;">
+            <h2 id="title" style="padding-top: 10px">Game Set Up</h2>
+            <div id="warBoard">
+                <form class="form-inline py-3">
+                    <b><span style="font-size: 20px;">Name:</span></b><input type="text" id="name" class="form-control"
+                                                                             placeholder="Name"/>
+                    <b><span style="font-size: 20px">Turns:</span></b><input type="number" id="moves" min=1 max=100
+                                                                             class="form-control"
+                                                                             placeholder="Max turns"/>
+                    <button type='button' onclick="setupGame();" class="btn btn-dark" style="margin: 25px">Set it up
+                    </button>
+                </form>
+                <div id="inputError" style="color: red"></div>
+            </div>
+        </div>
+        <div class=" col-sm-9 text-center" style="background-color:cornflowerblue; border:1px solid black;">
+            <span id="Game"> Game Area </span>
+            <table class="table" id="gameArea">
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
