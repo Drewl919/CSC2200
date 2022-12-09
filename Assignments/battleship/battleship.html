@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Battle Ship</title>
+    <title>Battleship</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -80,16 +80,71 @@
 
         function checkHit(r, c) {
             let spot = game.myBoard[r][c];
-            game.shotCount = game.shotCount++;
-            if (spot == null) {
-                game.miss = game.miss++;
-            } else {
+            game.shotCount = parseInt(game.shotCount) + 1;
+            if (spot != null) {
                 game.totalHit++;
                 if(spot=='car') {
                     game.shipStats.car.hits++;
+                    if(game.shipStats.car.maxHits==game.shipStats.car.hits) {
+                        game.shipStats.car.status = "Sunk"
+                        game.sunkShips++;
+                        game.shipsLeft--;
+                        document.getElementById("message").innerHTML = "<b><span style='color: red'>SUNK CARRIER!</span></b>";
+                    }
                     document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
-                    document.getElementById(`${r}${c}`).setAttribute("alert('Already Hit!')");
+                    document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                    document.getElementById("message").innerHTML = "<span style='color: red'>Hit Carrier!</span>";
+                } else if(spot=='bat') {
+                    game.shipStats.bat.hits++;
+                    if(game.shipStats.bat.maxHits==game.shipStats.bat.hits) {
+                        game.shipStats.bat.status = "Sunk"
+                        game.sunkShips++;
+                        game.shipsLeft--;
+                        document.getElementById("message").innerHTML = "<b><span style='color: red'>SUNK BATTLESHIP!</span></b>";
+                    }
+                    document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
+                    document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                    document.getElementById("message").innerHTML = "<span style='color: red'>Hit Battleship!</span>";
+                } else if(spot=='sub') {
+                    game.shipStats.sub.hits++;
+                    if(game.shipStats.sub.maxHits==game.shipStats.sub.hits) {
+                        game.shipStats.sub.status = "Sunk"
+                        game.sunkShips++;
+                        game.shipsLeft--;
+                        document.getElementById("message").innerHTML = "<b><span style='color: red'>SUNK SUBMARINE!</span></b>";
+                    }
+                    document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
+                    document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                    document.getElementById("message").innerHTML = "<b><span style='color: red'>Sunk Submarine!</span></b>";
+                } else if(spot=='cru') {
+                    game.shipStats.cru.hits++;
+                    if(game.shipStats.cru.maxHits==game.shipStats.cru.hits) {
+                        game.shipStats.cru.status = "Sunk"
+                        game.sunkShips++;
+                        game.shipsLeft--;
+                        document.getElementById("message").innerHTML = "<b><span style='color: red'>SUNK CRUISER!</span></b>";
+                    }
+                    document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
+                    document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                    document.getElementById("message").innerHTML = "<span style='color: red'>Hit Crioser!</span>";
+                } else if(spot=='des') {
+                game.shipStats.des.hits++;
+                    if(game.shipStats.des.maxHits==game.shipStats.des.hits) {
+                        game.shipStats.des.status = "Sunk"
+                        game.sunkShips++;
+                        game.shipsLeft--;
+                        document.getElementById("message").innerHTML = "<b><span style='color: red'>SUNK DESTROYER!</span></b>";
+                    }
+                document.getElementById(`${r}${c}`).innerHTML = game.hit.icon;
+                document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                document.getElementById("message").innerHTML = "<span style='color: red'>Hit Destroyer!</span>";
+
                 }
+            } else {
+                game.totalMisses = parseInt(game.totalMisses) + 1;
+                document.getElementById(`${r}${c}`).innerHTML = game.miss.icon;
+                document.getElementById(`${r}${c}`).onclick = function () {alert("Already Hit!")};
+                document.getElementById("message").innerHTML = "<span style='color: black'>Miss!</span>";
             }
             warBoard();
         }
@@ -194,7 +249,7 @@
             oStr += `<tr><td>Ships Left</td><td id='shipsLeft' class="text-center">${game.shipsLeft}</td></tr>`;
             oStr += "</table>";
 
-            oStr += "<div id='message' style='color: red; height: 25px; padding: 10px'></div>";
+            oStr += "<div id='message' style='height: 25px; padding: 10px'></div>";
             oStr += "<h2 style='padding: 0px'>Ship Status</h2><hr>";
 
             oStr += `<table class="table" style="border: 0px solid cornflowerblue">`
